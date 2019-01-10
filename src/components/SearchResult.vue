@@ -4,7 +4,7 @@
         <div class="search-result__content">
             <p class="search-result__title">{{ title }}</p>
             <p class="search-result__author">{{ author }}</p>
-            <p v-if="description" class="search-result__description">{{ description }}...</p>
+            <p v-if="description" class="search-result__description">{{ description }}</p>
         </div>
     </div>
 </template>
