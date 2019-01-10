@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <header class="header">
         <div class="header__content-row">
             <div class="header__logo">Videos <span>Explorer</span></div>
             <div class="header__content-wrapper">
@@ -29,7 +29,7 @@
                 </ul>
             </nav>
         </div>
-    </div>
+    </header>
 </template>
 
 <script>
