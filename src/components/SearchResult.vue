@@ -1,17 +1,31 @@
 <template>
-    <div class="search-result">
+    <router-link
+        tag="div"
+        class="search-result"
+        :to="{
+            name: 'video',
+            params: {
+                id: id,
+                title: title
+                }
+            }"
+        >
         <img :src="thumbnail" alt="" class="search-result__thumbnail">
         <div class="search-result__content">
             <p class="search-result__title">{{ title }}</p>
             <p class="search-result__author">{{ author }}</p>
             <p v-if="description" class="search-result__description">{{ description }}</p>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
 export default {
     props: {
+        id: {
+            type: String,
+            required: true
+        },
         thumbnail: {
             type: String,
             required: true

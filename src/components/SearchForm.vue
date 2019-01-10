@@ -26,6 +26,10 @@ export default {
             eventBus.$emit('onSearchFormSubmit', {
                 searchQuery: this.searchQuery.split(' ').join('+')
             });
+
+            if (this.$router.currentRoute.name != 'home') {
+                this.$router.push({ name: 'home' });
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
     <div class="home">
         <div class="home__results-wrapper">
             <SearchResult v-for="result in searchResults"
+                :id="result.id"
                 :thumbnail="result.thumbnailUrl"
                 :title="result.title"
                 :author="result.author"
@@ -41,14 +42,14 @@ export default {
               const author = result.snippet.channelTitle;
               const description = result.snippet.description;
               const thumbnailUrl = result.snippet.thumbnails.medium.url;
-              const videoUrl = `https://youtu.be/${result.id.videoId}`;
+              const id = result.id.videoId;
 
               this.searchResults.push({
                 title,
                 author,
                 description,
                 thumbnailUrl,
-                videoUrl
+                id
               });
             });
         }
