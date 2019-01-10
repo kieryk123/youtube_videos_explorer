@@ -31,6 +31,7 @@ body {
     background-color: #e1e1e1;
     color: #282828;
     font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 main {

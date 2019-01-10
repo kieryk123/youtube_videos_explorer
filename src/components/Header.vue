@@ -3,7 +3,7 @@
         <div class="header__content-row">
             <div class="header__logo">Videos <span>Explorer</span></div>
             <div class="header__content-wrapper">
-                searchbar + filters
+                <SearchForm></SearchForm>
             </div>
         </div>
         <div class="header__nav-row">
@@ -33,10 +33,15 @@
 </template>
 
 <script>
+import SearchForm from './SearchForm.vue';
+
 export default {
     data: () => ({
 
-    })
+    }),
+    components: {
+        SearchForm
+    }
 }
 </script>
 
