@@ -4,8 +4,8 @@
         <iframe
             class="video__iframe"
             type="text/html"
-            width="640"
-            height="360"
+            width="100%"
+            height="524"
             :src="url"
             frameborder="0"
         />
@@ -49,5 +49,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+.video {
+    &__title {
+        margin-top: 0;
+    }
+}
 </style>
