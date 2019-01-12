@@ -3,7 +3,9 @@
         <Header></Header>
         <main>
             <keep-alive>
-                <router-view></router-view>
+                <transition name="fade" mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </keep-alive>
         </main>
     </div>
@@ -44,5 +46,52 @@ main {
 .app {
     max-width: 992px;
     margin: 0 auto;
+}
+
+.fade-leave-active {
+    transition: opacity .2s ease;
+    opacity: 0;
+    animation: fade-out .2s ease-out forwards;
+}
+
+.fade-leave {
+    opacity: 1;
+}
+
+.fade-enter-active {
+    animation: fade-in .2s ease-out forwards;
+}
+
+.result-fade-leave-active {
+    position: absolute;
+    transition: opacity .2s ease;
+    opacity: 0;
+    animation: fade-out .2s ease-out forwards;
+}
+
+.result-fade-leave {
+    opacity: 1;
+}
+
+.result-fade-enter-active {
+    animation: fade-in .2s ease-out forwards;
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 </style>

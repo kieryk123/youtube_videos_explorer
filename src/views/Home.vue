@@ -1,14 +1,16 @@
 <template>
     <div class="home">
         <div class="home__results-wrapper">
-            <SearchResult v-for="result in searchResults"
-                :key="result.id"
-                :id="result.id"
-                :thumbnail="result.thumbnailUrl"
-                :title="result.title"
-                :author="result.author"
-                :description="result.description"
-            ></SearchResult>
+            <transition-group name="result-fade" mode="out-in">
+                <SearchResult v-for="result in searchResults"
+                    :key="result.id"
+                    :id="result.id"
+                    :thumbnail="result.thumbnailUrl"
+                    :title="result.title"
+                    :author="result.author"
+                    :description="result.description"
+                ></SearchResult>
+            </transition-group>
         </div>
         <div class="home__pagination-wrapper">
             <PaginationNav
@@ -103,6 +105,10 @@ export default {
 
 <style lang="scss">
 .home {
+    &__results-wrapper {
+        min-height: 1000px;
+    }
+
     &__pagination-wrapper {
         padding-top: 10px;
     }
