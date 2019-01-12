@@ -2,13 +2,19 @@
     <div class="home">
         <div class="home__results-wrapper">
             <SearchResult v-for="result in searchResults"
+                :key="result.id"
                 :id="result.id"
                 :thumbnail="result.thumbnailUrl"
                 :title="result.title"
                 :author="result.author"
                 :description="result.description"
-            >
-            </SearchResult>
+            ></SearchResult>
+        </div>
+        <div class="home__pagination-wrapper">
+            <PaginationNav
+                :nextPageToken="nextPageToken"
+                :prevPageToken="prevPageToken"
+            ></PaginationNav>
         </div>
     </div>
 </template>
@@ -16,25 +22,41 @@
 <script>
 import { eventBus } from '../main';
 import SearchResult from '../components/SearchResult.vue';
+import PaginationNav from '../components/PaginationNav.vue';
 
 export default {
     data: () => ({
-        searchQuery: 'awesome+music',
-        searchResults: []
+        searchQuery: 'funny+cats',
+        searchResults: [],
+        pageToken: '',
+        nextPageToken: '',
+        prevPageToken: ''
     }),
     created() {
         this.fetchResults();
-        eventBus.$on('onSearchFormSubmit', (response) => this.fetchResults(response.searchQuery));
+        eventBus.$on('onSearchFormSubmit', (response) => this.handleSearchFormSubmit(response));
+        eventBus.$on('onPageChange', (response) => this.handlePageChange(response));
     },
     methods: {
         fetchResults(searchQuery = this.searchQuery) {
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&&type=video&key=AIzaSyDdk4T-3uzGQUS1C0STzF6VZCMK-0fNIiM`;
+            let searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&type=video&key=AIzaSyDdk4T-3uzGQUS1C0STzF6VZCMK-0fNIiM`;
+
+            if (this.pageToken != '') {
+                searchUrl += `&pageToken=${this.pageToken}`;
+            }
 
             fetch(searchUrl)
                 .then(response => response.json())
-                .then(response => this.pushResultsToData(response.items));
+                .then(response => this.pushResultsToData(response));
         },
-        pushResultsToData(arrayOfResults) {
+        pushResultsToData(response) {
+            const arrayOfResults = response.items;
+
+            // set page tokens
+            this.nextPageToken = response.nextPageToken;
+            this.prevPageToken = response.prevPageToken;
+
+            // clear results array
             this.searchResults = [];
 
             arrayOfResults.forEach((result) => {
@@ -52,14 +74,37 @@ export default {
                 id
               });
             });
+        },
+        changePage(pageToken) {
+            this.updatePageToken(pageToken);
+            this.fetchResults();
+        },
+        updateSearchQuery(searchQuery) {
+            this.searchQuery = searchQuery;
+        },
+        updatePageToken(pageToken) {
+            this.pageToken = pageToken;
+        },
+        handleSearchFormSubmit(response) {
+            this.updatePageToken('');
+            this.updateSearchQuery(response.searchQuery);
+            this.fetchResults(response.searchQuery);
+        },
+        handlePageChange(response) {
+            this.changePage(response.pageToken)
         }
     },
     components: {
-        SearchResult
+        SearchResult,
+        PaginationNav
     }
 }
 </script>
 
 <style lang="scss">
-
+.home {
+    &__pagination-wrapper {
+        padding-top: 10px;
+    }
+}
 </style>

@@ -2,14 +2,8 @@
     <router-link
         tag="div"
         class="search-result"
-        :to="{
-            name: 'video',
-            params: {
-                id: id,
-                title: title
-                }
-            }"
-        >
+        :to="{name: 'video', params: { id } }"
+    >
         <img :src="thumbnail" alt="" class="search-result__thumbnail">
         <div class="search-result__content">
             <p class="search-result__title">{{ title }}</p>

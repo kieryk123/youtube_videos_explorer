@@ -4,7 +4,7 @@
         <main>
             <keep-alive>
                 <router-view></router-view>
-            </keep-alive>    
+            </keep-alive>
         </main>
     </div>
 </template>
