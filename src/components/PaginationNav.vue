@@ -2,10 +2,12 @@
     <div class="pagination-nav">
         <button
             class="pagination-nav__btn pagination-nav__btn--prev"
+            :class="disabledPrevClass"
             @click="onPageChange(prevPageToken)"
         ></button>
         <button
             class="pagination-nav__btn pagination-nav__btn--next"
+            :class="disabledNextClass"
             @click="onPageChange(nextPageToken)"
         ></button>
     </div>
@@ -32,6 +34,18 @@ export default {
         onPageChange(pageToken) {
             if (pageToken) {
                 eventBus.$emit('onPageChange', { pageToken });
+            }
+        }
+    },
+    computed: {
+        disabledPrevClass() {
+            if (!this.prevPageToken) {
+                return 'pagination-nav__btn--disabled';
+            }
+        },
+        disabledNextClass() {
+            if (!this.nextPageToken) {
+                return 'pagination-nav__btn--disabled';
             }
         }
     }
@@ -63,6 +77,15 @@ export default {
 
         &--prev {
             transform: rotate(180deg);
+        }
+
+        &--disabled {
+            opacity: 0.3;
+
+            &:hover {
+                cursor: not-allowed;
+                background-color: rgba(#282828, 0.05);
+            }
         }
     }
 }
