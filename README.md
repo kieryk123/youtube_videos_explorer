@@ -1,29 +1,10 @@
 # youtube_videos_explorer
 
-## Project setup
-```
-npm install
-```
+Simple application to explore youtube videos made in Vue.js.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## I used:
+* YouTube API
+* Vue Router
+* Vue CLI 3
+* SASS
+* BEM naming convention
