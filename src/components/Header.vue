@@ -3,44 +3,23 @@
         <div class="header__content-row">
             <div class="header__logo">Videos <span>Explorer</span></div>
             <div class="header__content-wrapper">
-                <SearchForm></SearchForm>
+                <SearchForm/>
             </div>
         </div>
         <div class="header__nav-row">
-            <nav class="menu">
-                <ul class="menu__list">
-                    <router-link
-                        class="menu__item"
-                        to="/"
-                        tag="li"
-                        active-class="menu__item--active"
-                        exact
-                    >
-                        <a class="menu__link" href="#">Home</a>
-                    </router-link>
-                    <router-link
-                        class="menu__item"
-                        to="/about"
-                        tag="li"
-                        active-class="menu__item--active"
-                    >
-                        <a class="menu__link" href="#">About</a>
-                    </router-link>
-                </ul>
-            </nav>
+            <Menu/>
         </div>
     </header>
 </template>
 
 <script>
 import SearchForm from './SearchForm.vue';
+import Menu from './Menu.vue';
 
 export default {
-    data: () => ({
-
-    }),
     components: {
-        SearchForm
+        SearchForm,
+        Menu
     }
 }
 </script>

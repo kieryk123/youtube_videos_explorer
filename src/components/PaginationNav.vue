@@ -27,9 +27,6 @@ export default {
             required: false
         }
     },
-    data: () => ({
-
-    }),
     methods: {
         onPageChange(pageToken) {
             if (pageToken) {

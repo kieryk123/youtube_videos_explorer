@@ -1,10 +1,10 @@
 <template>
     <div class="app">
-        <Header></Header>
+        <Header/>
         <main>
             <keep-alive>
                 <transition name="fade" mode="out-in">
-                    <router-view></router-view>
+                    <router-view/>
                 </transition>
             </keep-alive>
         </main>
@@ -15,9 +15,6 @@
 import Header from './components/Header.vue';
 
 export default {
-    data: () => ({
-
-    }),
     components: {
       Header
     }

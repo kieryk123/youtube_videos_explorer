@@ -9,14 +9,14 @@
                     :title="result.title"
                     :author="result.author"
                     :description="result.description"
-                ></SearchResult>
+                />
             </transition-group>
         </div>
         <div class="home__pagination-wrapper">
             <PaginationNav
                 :nextPageToken="nextPageToken"
                 :prevPageToken="prevPageToken"
-            ></PaginationNav>
+            />
         </div>
     </div>
 </template>
@@ -27,6 +27,11 @@ import SearchResult from '../components/SearchResult.vue';
 import PaginationNav from '../components/PaginationNav.vue';
 
 export default {
+    created() {
+        this.fetchResults();
+        eventBus.$on('onSearchFormSubmit', (response) => this.handleSearchFormSubmit(response));
+        eventBus.$on('onPageChange', (response) => this.handlePageChange(response));
+    },
     data: () => ({
         searchQuery: 'funny+cats',
         searchResults: [],
@@ -34,11 +39,6 @@ export default {
         nextPageToken: '',
         prevPageToken: ''
     }),
-    created() {
-        this.fetchResults();
-        eventBus.$on('onSearchFormSubmit', (response) => this.handleSearchFormSubmit(response));
-        eventBus.$on('onPageChange', (response) => this.handlePageChange(response));
-    },
     methods: {
         fetchResults(searchQuery = this.searchQuery) {
             let searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&type=video&key=AIzaSyDdk4T-3uzGQUS1C0STzF6VZCMK-0fNIiM`;

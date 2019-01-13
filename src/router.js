@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 import About from './views/About.vue';
 import Video from './views/Video.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     mode: 'history',

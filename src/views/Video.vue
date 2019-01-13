@@ -35,9 +35,7 @@ export default {
 
             fetch(searchUrl)
                 .then(response => response.json())
-                .then(response => {
-                    this.title = response.items[0].snippet.title;
-                });
+                .then(response => this.title = response.items[0].snippet.title);
         }
     },
     computed: {
