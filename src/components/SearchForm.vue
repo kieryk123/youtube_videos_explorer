@@ -18,10 +18,18 @@
 import { eventBus } from '../main';
 
 export default {
+    created() {
+        eventBus.$on('onRouteChange', () => this.updateResults());    
+    },
     data: () => ({
         searchQuery: ''
     }),
     methods: {
+        updateResults() {
+            eventBus.$emit('onSearchFormSubmit', {
+                searchQuery: this.searchQuery.split(' ').join('+')
+            });
+        },
         onSubmit() {
             eventBus.$emit('onSearchFormSubmit', {
                 searchQuery: this.searchQuery.split(' ').join('+')

@@ -28,12 +28,13 @@ import PaginationNav from '../components/PaginationNav.vue';
 
 export default {
     created() {
-        this.fetchResults();
         eventBus.$on('onSearchFormSubmit', (response) => this.handleSearchFormSubmit(response));
         eventBus.$on('onPageChange', (response) => this.handlePageChange(response));
+        eventBus.$emit('onRouteChange');
+        this.fetchResults();
     },
     data: () => ({
-        searchQuery: 'funny+cats',
+        searchQuery: '',
         searchResults: [],
         pageToken: '',
         nextPageToken: '',
