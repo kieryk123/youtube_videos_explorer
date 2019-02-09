@@ -8,5 +8,6 @@ Live version: [click here](http://dev.fireart.pl/youtube_videos_explorer/)
 * YouTube API
 * Vue Router
 * Vue CLI 3
+* Vuex
 * SASS
 * BEM naming convention
