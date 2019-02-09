@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         searchResults: [],
-        searchQuery: 'kieryk',
+        searchQuery: 'funny+cats',
         pageToken: '',
         nextPageToken: '',
         prevPageToken: '',
