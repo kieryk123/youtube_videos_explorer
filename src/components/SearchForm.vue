@@ -15,25 +15,17 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
-
 export default {
-    created() {
-        eventBus.$on('onRouteChange', () => this.updateResults());    
-    },
     data: () => ({
         searchQuery: ''
     }),
     methods: {
-        updateResults() {
-            eventBus.$emit('onSearchFormSubmit', {
-                searchQuery: this.searchQuery.split(' ').join('+')
-            });
-        },
         onSubmit() {
-            eventBus.$emit('onSearchFormSubmit', {
-                searchQuery: this.searchQuery.split(' ').join('+')
-            });
+            const searchQuery = this.searchQuery.split(' ').join('+');
+
+            this.$store.dispatch('updateSearchQuery', searchQuery);
+            this.$store.dispatch('updatePageToken', '');
+            this.$store.dispatch('fetchSearchResults');
 
             if (this.$router.currentRoute.name != 'home') {
                 this.$router.push({ name: 'home' });

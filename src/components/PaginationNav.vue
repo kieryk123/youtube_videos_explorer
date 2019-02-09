@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
-
 export default {
     props: {
         prevPageToken: {
@@ -30,7 +28,8 @@ export default {
     methods: {
         onPageChange(pageToken) {
             if (pageToken) {
-                eventBus.$emit('onPageChange', { pageToken });
+                this.$store.dispatch('updatePageToken', pageToken);
+                this.$store.dispatch('fetchSearchResults');
             }
         }
     },

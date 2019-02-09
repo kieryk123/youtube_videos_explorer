@@ -22,79 +22,22 @@
 </template>
 
 <script>
-import { eventBus } from '../main';
 import SearchResult from '../components/SearchResult.vue';
 import PaginationNav from '../components/PaginationNav.vue';
 
 export default {
     created() {
-        eventBus.$on('onSearchFormSubmit', (response) => this.handleSearchFormSubmit(response));
-        eventBus.$on('onPageChange', (response) => this.handlePageChange(response));
-        eventBus.$emit('onRouteChange');
-        this.fetchResults();
+        this.$store.dispatch('fetchSearchResults');
     },
-    data: () => ({
-        searchQuery: '',
-        searchResults: [],
-        pageToken: '',
-        nextPageToken: '',
-        prevPageToken: ''
-    }),
-    methods: {
-        fetchResults(searchQuery = this.searchQuery) {
-            let searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&type=video&key=AIzaSyDdk4T-3uzGQUS1C0STzF6VZCMK-0fNIiM`;
-
-            if (this.pageToken != '') {
-                searchUrl += `&pageToken=${this.pageToken}`;
-            }
-
-            fetch(searchUrl)
-                .then(response => response.json())
-                .then(response => this.pushResultsToData(response));
+    computed: {
+        searchResults() {
+            return this.$store.getters.searchResults;
         },
-        pushResultsToData(response) {
-            const arrayOfResults = response.items;
-
-            // set page tokens
-            this.nextPageToken = response.nextPageToken;
-            this.prevPageToken = response.prevPageToken;
-
-            // clear results array
-            this.searchResults = [];
-
-            arrayOfResults.forEach((result) => {
-              const title = result.snippet.title;
-              const author = result.snippet.channelTitle;
-              const description = result.snippet.description;
-              const thumbnailUrl = result.snippet.thumbnails.medium.url;
-              const id = result.id.videoId;
-
-              this.searchResults.push({
-                title,
-                author,
-                description,
-                thumbnailUrl,
-                id
-              });
-            });
+        prevPageToken() {
+            return this.$store.getters.prevPageToken;
         },
-        changePage(pageToken) {
-            this.updatePageToken(pageToken);
-            this.fetchResults();
-        },
-        updateSearchQuery(searchQuery) {
-            this.searchQuery = searchQuery;
-        },
-        updatePageToken(pageToken) {
-            this.pageToken = pageToken;
-        },
-        handleSearchFormSubmit(response) {
-            this.updatePageToken('');
-            this.updateSearchQuery(response.searchQuery);
-            this.fetchResults(response.searchQuery);
-        },
-        handlePageChange(response) {
-            this.changePage(response.pageToken)
+        nextPageToken() {
+            return this.$store.getters.nextPageToken;
         }
     },
     components: {
